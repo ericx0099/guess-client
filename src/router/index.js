@@ -22,14 +22,14 @@ const routes = [
   },
   {
     path: "/register",
-    name: 'Register',
-    component: Register
-  }
+    name: "Register",
+    component: Register,
+  },
 ];
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: "history",
 });
 
 export default router;
