@@ -4,19 +4,20 @@
       <div class="d-flex align-center">
         Home
       </div>
-
       <v-spacer></v-spacer>
-
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
         text
       >
-        <span class="mr-2">Play</span>
+        <span class="mr-2" @click="$vuetify.theme.dark = ! $vuetify.theme.dark">Dark Mode</span>
+        <v-icon>mdi-theme-light-dark</v-icon>
+      </v-btn>
+      <v-btn
+          text
+      >
+        <span class="mr-2" >Play</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-
     <v-main>
       <router-view />
     </v-main>
@@ -28,7 +29,7 @@ export default {
   name: "App",
 
   data: () => ({
-    //
+    username: ''
   }),
 };
 </script>
