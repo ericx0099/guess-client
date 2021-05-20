@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Register from "../views/Register";
 import Login from "../views/Login";
+import Country from "../views/Country";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/admin/countries",
+    name: "AdministrateCountries",
+    component: Country
   }
 ];
 

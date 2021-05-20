@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar app color="primary" dark >
       <div class="d-flex align-center">
         Home
       </div>
@@ -11,7 +11,7 @@
           v-if="$store.state.auth.user"
           class="mx-2"
       >
-        <v-icon>mdi-comment-plus-outline</v-icon> Submit Answer
+         <span class="mx-2">New Question</span> <v-icon>mdi-comment-plus-outline</v-icon>
       </v-btn>
       <div class="text-center mx-2" v-if="$store.state.auth.user && $store.state.auth.user.isAdmin">
         <v-menu offset-y>
