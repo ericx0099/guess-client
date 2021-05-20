@@ -4,7 +4,9 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import VueToastify from "vue-toastify";
+import VueCookies from 'vue-cookies';
 Vue.use(VueToastify);
+Vue.use(VueCookies);
 /*import './assets/tailwind.css';*/
 
 Vue.config.productionTip = false;

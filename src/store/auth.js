@@ -14,12 +14,21 @@ export default {
   mutations: {
     SET_TOKEN(state, token) {
       state.token = token;
+      this._vm.$cookies.set("user-token", token, "1d");
     },
     SET_USER(state, data) {
       state.user = data;
     },
+    UNSET_DATA(state) {
+      state.token = null;
+      state.user = null;
+      this._vm.$cookies.remove("user-token");
+    },
   },
   actions: {
+    async logout({ commit }) {
+      commit('UNSET_DATA');
+    },
     async login({ dispatch }, credentials) {
       var dataToAttempt = {
         token: "",
@@ -58,6 +67,17 @@ export default {
       }
       dispatch("attempt", dataToAttempt);
     },
+    async checkToken({ dispatch, commit }) {
+      let cookieToken = this._vm.$cookies.get("user-token");
+      if (cookieToken) {
+        const dataToAttempt = {
+          token: cookieToken,
+        };
+        dispatch("attempt", dataToAttempt);
+      } else {
+        commit("UNSET_DATA");
+      }
+    },
     async attempt({ commit }, dataToAttempt) {
       commit("SET_TOKEN", dataToAttempt.token);
       const me = {
@@ -83,6 +103,13 @@ export default {
           .post("http://localhost:3000/api", me, axiosConfig)
           .then((res) => {
             response = res;
+            this._vm.$vToastify.success({
+              title: "Success",
+              body: "Logged In!",
+              type: "success",
+              defaultTitle: true,
+              canPause: false,
+            });
           });
         commit("SET_USER", response.data.data.me);
       } catch {
