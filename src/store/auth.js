@@ -60,7 +60,15 @@ export default {
           });
         });
 
+
       if (response !== null) {
+        this._vm.$vToastify.success({
+          title: "Success",
+          body: "Logged In!",
+          type: "success",
+          defaultTitle: true,
+          canPause: false,
+        });
         dataToAttempt = {
           token: response.data.data.login.token,
         };
@@ -103,18 +111,10 @@ export default {
           .post("http://localhost:3000/api", me, axiosConfig)
           .then((res) => {
             response = res;
-            this._vm.$vToastify.success({
-              title: "Success",
-              body: "Logged In!",
-              type: "success",
-              defaultTitle: true,
-              canPause: false,
-            });
           });
         commit("SET_USER", response.data.data.me);
       } catch {
-        commit("SET_USER", null);
-        commit("SET_TOKEN", null);
+        commit("UNSET_DATA");
       }
     },
   },

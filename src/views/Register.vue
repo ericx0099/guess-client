@@ -102,7 +102,6 @@ export default {
               canPause: false
             `,
           };
-          console.log(error);
           this.$vToastify.error(error);
         });
     },

@@ -2,7 +2,12 @@
   <div>
     <div v-if="$store.state.auth.user">
       <div v-if="$store.state.auth.user.isAdmin">
-        <add-country></add-country>
+        <div class="row" style="display: flex; justify-content: center" >
+          <div class="col-md-3 bg-success mt-5">
+            <add-country ></add-country>
+          </div>
+        </div>
+
       </div>
       <div v-else>
         <h1 class="text-center">Unauthenticated</h1>

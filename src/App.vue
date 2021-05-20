@@ -27,7 +27,7 @@
           </template>
           <v-list>
             <v-list-item
-
+              @click="toCountryAdmin"
             >
               <v-list-item-title>
                 <v-icon>mdi-flag-plus-outline</v-icon>
@@ -129,6 +129,9 @@ export default {
     },
     toLogin(){
       this.$router.push('/login');
+    },
+    toCountryAdmin() {
+      this.$router.push('/admin/countries');
     }
   }
 };
