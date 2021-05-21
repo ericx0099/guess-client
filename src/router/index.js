@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Register from "../views/Register";
 import Login from "../views/Login";
 import Country from "../views/Country";
+import Play from "../views/Play";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,11 @@ const routes = [
     path: "/admin/countries",
     name: "AdministrateCountries",
     component: Country
+  },
+  {
+    path: "/play",
+    name: "Play",
+    component: Play
   }
 ];
 

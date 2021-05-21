@@ -87,6 +87,7 @@
 
       <v-btn
           text
+          class="mx-2"
       >
         <span class="mr-2" >Play</span>
         <v-icon>mdi-open-in-new</v-icon>
