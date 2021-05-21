@@ -5,6 +5,7 @@ import Register from "../views/Register";
 import Login from "../views/Login";
 import Country from "../views/Country";
 import Play from "../views/Play";
+import submitQuestion from "../views/submitQuestion";
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,11 @@ const routes = [
     path: "/play",
     name: "Play",
     component: Play
+  },
+  {
+    path: "/submit-question",
+    name: "Submitquestion",
+    component: submitQuestion
   }
 ];
 
