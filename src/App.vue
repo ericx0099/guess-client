@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar app color="primary" dark >
       <div class="d-flex align-center">
-        Home
+        Countryz
       </div>
       <v-spacer></v-spacer>
       <v-btn
@@ -83,17 +83,19 @@
              color="primary"
              dark
       >
-        <span>Switch Mode</span>  <v-icon>mdi-theme-light-dark</v-icon>
+        <span>Switch Mode</span> <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 
       <v-btn
           text
           class="mx-2"
+          @click="$router.push('/play');"
       >
         <span class="mr-2" >Play</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
+
     <v-main>
       <router-view />
     </v-main>
@@ -113,10 +115,16 @@ export default {
   components: {CookieLaw},
 
   data: () => ({
-    username: ''
+    username: '',
+    toggleMenu: false,
   }),
   created() {
     this.checkCookie()
+  },
+  computed: {
+    showMenu() {
+      return this.toggleMenu || this.$vuetify.breakpoint.mdAndUp
+    }
   },
   methods: {
     ...mapActions({
@@ -138,6 +146,7 @@ export default {
     newQuestion(){
       this.$router.push('/submit-question');
     }
+
   }
 };
 </script>

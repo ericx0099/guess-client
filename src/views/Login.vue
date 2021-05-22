@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex';
+import { mapActions } from "vuex";
 export default {
   name: "Login",
   data: () => ({
@@ -65,15 +65,15 @@ export default {
       }
     },
     ...mapActions({
-      login: 'auth/login'
+      login: "auth/login",
     }),
-    signIn(){
+    signIn() {
       const credentials = {
         email: this.email,
-        password: this.password
+        password: this.password,
       };
       this.login(credentials);
-    }
+    },
   },
 };
 </script>

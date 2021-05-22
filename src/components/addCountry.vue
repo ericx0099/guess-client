@@ -49,23 +49,27 @@ export default {
           if (res.data.errors) {
             this.$vToastify.error(res.data.errors[0].message);
           } else {
-            this.$vToastify.success("Country "+res.data.data.createCountry.name+ " created successfully");
+            this.$vToastify.success(
+              "Country " +
+                res.data.data.createCountry.name +
+                " created successfully"
+            );
           }
         })
         .catch((err) => {
           console.log(err);
-            if(err.response.data.errors){
-              const error = {
-                status: `
+          if (err.response.data.errors) {
+            const error = {
+              status: `
               title: "Error",
               body: "${err.response.data.errors[0].message}",
               type: "error",
               defaultTitle: true,
               canPause: false
             `,
-              };
-              this.$vToastify.error(error);
-            }
+            };
+            this.$vToastify.error(error);
+          }
         });
     },
   },
