@@ -96,7 +96,6 @@ export default {
           }
         `
       }
-      console.log(mutation);
       let axiosConfig = {
         headers: {
           Authorization: "Bearer " + this.$store.state.auth.token,

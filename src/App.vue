@@ -10,6 +10,7 @@
           dark
           v-if="$store.state.auth.user"
           class="mx-2"
+          @click="newQuestion"
       >
          <span class="mx-2">New Question</span> <v-icon>mdi-comment-plus-outline</v-icon>
       </v-btn>
@@ -133,6 +134,9 @@ export default {
     },
     toCountryAdmin() {
       this.$router.push('/admin/countries');
+    },
+    newQuestion(){
+      this.$router.push('/submit-question');
     }
   }
 };
