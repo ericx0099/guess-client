@@ -89,8 +89,13 @@ export default {
         .post("http://localhost:3000/api", mutation, axiosConfig)
         .then((res) => {
           if(res.data.data.createGame.uniq_token){
-            this.$parent.gameToken = res.data.data.createGame.uniq_token;
-            console.log(this.$parent.gameToken);
+            this.$parent.game_token = res.data.data.createGame.uniq_token;
+            this.$parent.waiting_lobby = true;
+            this.$parent.creating = false;
+            this.$parent.joining = false;
+            this.$parent.join_game();
+          }else{
+            this.$vToastify.error("Something went wrong!");
           }
         })
         .catch((err) => {

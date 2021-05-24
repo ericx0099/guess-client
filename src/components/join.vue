@@ -19,8 +19,10 @@
         <div class="mt-15">
           <v-card class="mx-auto mt-15" max-width="344">
             <v-card-text>
-              <v-text-field label="Enter Game PIN"></v-text-field>
-              <v-btn color="warning" dark large width="100%"> Enter! </v-btn>
+              <v-text-field label="Enter Game PIN" v-model="pin"></v-text-field>
+              <v-btn color="warning" dark large width="100%" @click="join">
+                Enter!
+              </v-btn>
             </v-card-text>
           </v-card>
         </div>
@@ -53,6 +55,18 @@
 <script>
 export default {
   name: "join",
+  data() {
+    return {
+      pin: null,
+    };
+  },
+  methods: {
+    join() {
+      this.$parent.game_token = this.pin;
+      this.$parent.join_game();
+
+    },
+  },
 };
 </script>
 

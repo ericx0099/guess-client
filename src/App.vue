@@ -1,12 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark >
+    <v-app-bar app color="indigo" dark  class="lighten-1 white--text">
       <div class="d-flex align-center">
         Countryz
       </div>
       <v-spacer></v-spacer>
       <v-btn
-          color="primary"
+          color="indigo"
           dark
           v-if="$store.state.auth.user"
           class="mx-2"
@@ -18,7 +18,7 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-                color="primary"
+                color="indigo"
                 dark
                 v-bind="attrs"
                 v-on="on"
@@ -41,7 +41,7 @@
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-                color="primary"
+                color="indigo"
                 dark
                 v-bind="attrs"
                 v-on="on"
@@ -69,7 +69,7 @@
       </div>
       <div v-else class="mx-2">
           <v-btn
-              color="primary"
+              color="indigo"
               dark
               @click="toLogin"
           >
@@ -92,13 +92,46 @@
           @click="$router.push('/play');"
       >
         <span class="mr-2" >Play</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <v-icon>mdi-gamepad-variant-outline</v-icon>
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main padless>
       <router-view />
     </v-main>
+    <v-footer
+        dark
+        padless
+    >
+      <v-card
+          flat
+          tile
+          class=" indigo lighten-1 white--text text-center"
+      >
+        <v-card-text>
+          <v-btn
+              v-for="icon in icons"
+              :key="icon"
+              class="mx-4 white--text"
+              icon
+          >
+            <v-icon size="24px">
+              {{ icon }}
+            </v-icon>
+          </v-btn>
+        </v-card-text>
+
+        <v-card-text class="white--text pt-0">
+          Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-text class="white--text">
+          {{ new Date().getFullYear() }} — <strong>Countryz</strong>
+        </v-card-text>
+      </v-card>
+    </v-footer>
     <footer>
       <footer>
         <cookie-law theme="dark-lime"></cookie-law>
@@ -117,6 +150,12 @@ export default {
   data: () => ({
     username: '',
     toggleMenu: false,
+    icons: [
+      'mdi-facebook',
+      'mdi-twitter',
+      'mdi-linkedin',
+      'mdi-instagram',
+    ],
   }),
   created() {
     this.checkCookie()
