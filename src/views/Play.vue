@@ -15,7 +15,7 @@
                     rounded
                     color="primary"
                     dark
-                    v-if="creator_id"
+                    v-if="creator_id == $store.state.auth.user._id "
                     @click="startGame"
                 >
                   Start game!
@@ -30,6 +30,7 @@
         </v-col>
       </v-row>
     </div>
+    <question-round v-if="rounds" :question="question"></question-round>
   </div>
 </template>
 
@@ -38,13 +39,15 @@ import io from "socket.io-client";
 import Join from "../components/join";
 import createGame from "../components/createGame";
 import gamePlayers from "../components/gamePlayers";
+import questionRound from "../components/questionRound";
 var socket = io.connect("http://localhost:3333");
 export default {
   name: "Play",
   components: {
     Join,
     createGame,
-    gamePlayers
+    gamePlayers,
+    questionRound
   },
   data() {
     return {
@@ -54,7 +57,9 @@ export default {
       game_token: null,
       waiting_lobby: false,
       players: [],
-      creator_id: null
+      creator_id: null,
+      rounds : false,
+      question: null
     };
   },
   created() {
@@ -72,8 +77,15 @@ export default {
         this.creating = false;
         this.joining = false;
         this.players = data.users
-
       });
+      socket.on('new_question', (data) => {
+        this.waiting_lobby = false;
+        this.creating = false
+        this.joining = false;
+        this.rounds = true;
+        this.question = data
+        console.log(data);
+      })
       socket.on('error', (data) => {
         this.$vToastify.error(data);
       });
