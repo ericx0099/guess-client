@@ -84,6 +84,8 @@ export default {
         this.joining = false;
         this.rounds = true;
         this.question = data
+      })
+      socket.on("answer-response", (data)=>{
         console.log(data);
       })
       socket.on('error', (data) => {
@@ -96,6 +98,9 @@ export default {
     },
     startGame(){
       socket.emit("start-game", {user_id: this.$store.state.auth.user._id, game_token: this.game_token})
+    },
+    submitAnswer(id, time){
+      socket.emit("submit-answer", {answer: id, question: this.question.question_id, userId: this.$store.state.auth.user._id, game_token: this.game_token,time:time})
     }
   },
 };
