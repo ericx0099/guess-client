@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-progress-linear
-        :value="value"
+        :value="$parent.timebar_value"
         height="25"
-        :color="progressbar_color"
+        :color="$parent.progressbar_color"
         striped
     >
-      <strong>{{ 10-value/10 }}</strong>
+      <strong>{{ 10-$parent.timebar_value/10 }}</strong>
     </v-progress-linear>
     <div class="mt-15 text-center d-flex justify-center ">
      <v-row class="d-flex justify-center">
@@ -28,7 +28,7 @@
                   sm="12"
                   v-for="(country, index) in question.countries"
                   :key="country._id"
-                  class="d-flex justify-center"
+                  class="d-flex justify-center "
               >
                 <v-btn
                     :color="colors[index]"
@@ -72,22 +72,33 @@ export default {
   },
   data(){
     return{
-      value: 0,
       colors: ["red","orange","green","blue"],
-      progressbar_color: "light-blue",
       waiting_players: false,
       id: "demo",
-      txt: "Waiting for players.."
+      txt: "Waiting for players..",
+      hasAnswered: false
     }
   },
   created(){
-   this.timebar()
+
+    this.$parent.progressbar_color = "light-blue"
+  },
+  mounted() {
+    this.timebar()
+  },
+  watch: {
+    question: function(){
+      this.timebar()
+      this.hasAnswered = false
+    }
   },
   methods:{
     answer(id){
       console.log(id);
       this.disableButtons()
-      this.$parent.submitAnswer(id, this.value);
+      this.$parent.submitAnswer(id, this.$parent.timebar_value);
+      this.hasAnswered = true
+
     },
     disableButtons(){
       let buttons = document.getElementsByClassName('buttonz');
@@ -95,18 +106,28 @@ export default {
         b.setAttribute("disabled", true);
       });
     },
+    stateChange() {
+
+      setTimeout( () => {
+
+         this.$parent.next()
+      }, 2000);
+    },
     timebar(){
       const limitedInterval = setInterval(() => {
-        if (this.value==100) {
+        if (this.$parent.timebar_value==100) {
+
           clearInterval(limitedInterval);
-          this.progressbar_color = "red";
           this.disableButtons();
+          if(!this.hasAnswered)  this.$parent.submitAnswer("wrong",110);
 
-          this.waiting_players = true;
+          this.$parent.progressbar_color = this.$parent.progressbar_color_response
+
+          this.stateChange()
+
         }else{
-          this.value=this.value+10;
+          this.$parent.timebar_value=this.$parent.timebar_value+10;
         }
-
       },  1000);
     },
     typeWriter() {

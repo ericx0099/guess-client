@@ -59,7 +59,11 @@ export default {
       players: [],
       creator_id: null,
       rounds : false,
-      question: null
+      question: null,
+      next_question: null,
+      progressbar_color: "light-blue",
+      progressbar_color_response : '',
+      timebar_value: 0
     };
   },
   created() {
@@ -83,15 +87,34 @@ export default {
         this.creating = false
         this.joining = false;
         this.rounds = true;
-        this.question = data
+
+        if(data.game_round == 1){
+
+          this.question = data
+        }else{
+
+
+          this.next_question = data
+        }
+
       })
       socket.on("answer-response", (data)=>{
-        console.log(data);
+        console.log(data)
+        if(data == "2"){
+          this.progressbar_color_response = "light-green";
+        }else{
+          this.progressbar_color_response = "red";
+        }
       })
       socket.on('error', (data) => {
         this.$vToastify.error(data);
       });
 
+    },
+    next(){
+      this.question = this.next_question
+      this.progressbar_color = "light-blue"
+      this.timebar_value = 0;
     },
     join_game(){
       socket.emit("join-game", {user_id: this.$store.state.auth.user._id, game_token: this.game_token})
@@ -100,6 +123,7 @@ export default {
       socket.emit("start-game", {user_id: this.$store.state.auth.user._id, game_token: this.game_token})
     },
     submitAnswer(id, time){
+      console.log("time=>"+time);
       socket.emit("submit-answer", {answer: id, question: this.question.question_id, userId: this.$store.state.auth.user._id, game_token: this.game_token,time:time})
     }
   },
