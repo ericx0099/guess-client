@@ -90,6 +90,7 @@ export default {
     question: function(){
       this.timebar()
       this.hasAnswered = false
+      this.enableButtons();
     }
   },
   methods:{
@@ -98,7 +99,12 @@ export default {
       this.disableButtons()
       this.$parent.submitAnswer(id, this.$parent.timebar_value);
       this.hasAnswered = true
-
+    },
+    enableButtons(){
+      let buttons = document.getElementsByClassName('buttonz');
+      buttons.forEach(function(b){
+        b.setAttribute("disabled", false);
+      });
     },
     disableButtons(){
       let buttons = document.getElementsByClassName('buttonz');
@@ -111,19 +117,35 @@ export default {
       setTimeout( () => {
 
          this.$parent.next()
-      }, 2000);
+      }, 3500);
     },
     timebar(){
       const limitedInterval = setInterval(() => {
         if (this.$parent.timebar_value==100) {
 
           clearInterval(limitedInterval);
-          this.disableButtons();
-          if(!this.hasAnswered)  this.$parent.submitAnswer("wrong",110);
 
-          this.$parent.progressbar_color = this.$parent.progressbar_color_response
+          if(this.$parent.game_ended_prev){
+            setTimeout( () => {
+              this.$parent.rounds = false
+              this.$parent.game_ended = true;
+            }, 2000);
+          }else{
+            if(!this.hasAnswered) {
+              this.$parent.submitAnswer("60aeb08e4ebd2a1b9bf7d779",110);
+              this.$parent.progressbar_color = "red"
+              this.stateChange()
 
-          this.stateChange()
+            }
+            else{
+              this.$parent.progressbar_color = this.$parent.progressbar_color_response
+
+              this.stateChange()
+            }
+
+
+          }
+
 
         }else{
           this.$parent.timebar_value=this.$parent.timebar_value+10;

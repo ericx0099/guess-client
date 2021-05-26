@@ -31,6 +31,7 @@
       </v-row>
     </div>
     <question-round v-if="rounds" :question="question"></question-round>
+    <game-ended v-if="game_ended" :players="players"></game-ended>
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import Join from "../components/join";
 import createGame from "../components/createGame";
 import gamePlayers from "../components/gamePlayers";
 import questionRound from "../components/questionRound";
+import gameEnded from "../components/gameEnded";
 var socket = io.connect("http://localhost:3333");
 export default {
   name: "Play",
@@ -47,7 +49,8 @@ export default {
     Join,
     createGame,
     gamePlayers,
-    questionRound
+    questionRound,
+    gameEnded
   },
   data() {
     return {
@@ -63,7 +66,9 @@ export default {
       next_question: null,
       progressbar_color: "light-blue",
       progressbar_color_response : '',
-      timebar_value: 0
+      timebar_value: 0,
+      game_ended: false,
+      game_ended_prev: false
     };
   },
   created() {
@@ -87,14 +92,15 @@ export default {
         this.creating = false
         this.joining = false;
         this.rounds = true;
-
-        if(data.game_round == 1){
-
-          this.question = data
+        if(data.countries.length===0){
+          this.game_ended_prev = true;
+          this.players = data.players
         }else{
-
-
-          this.next_question = data
+          if(data.game_round == 1){
+            this.question = data
+          }else{
+            this.next_question = data
+          }
         }
 
       })
