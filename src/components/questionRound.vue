@@ -1,60 +1,61 @@
 <template>
   <div>
     <v-progress-linear
-        :value="$parent.timebar_value"
-        height="25"
-        :color="$parent.progressbar_color"
-        striped
+      :value="$parent.timebar_value"
+      height="25"
+      :color="$parent.progressbar_color"
+      striped
     >
-      <strong>{{ 10-$parent.timebar_value/10 }}</strong>
+      <strong>{{ 10 - $parent.timebar_value / 10 }}</strong>
     </v-progress-linear>
-    <div class="mt-15 text-center d-flex justify-center ">
-     <v-row class="d-flex justify-center">
-       <v-col cols="6" sm="20" class="ju" >
-         <span  class="display-1 font-weight-black" style="border-bottom: 5px solid blue !important">{{question.question_text}}</span>
-       </v-col>
-     </v-row>
+    <div class="mt-15 text-center d-flex justify-center">
+      <v-row class="d-flex justify-center">
+        <v-col cols="6" sm="20">
+          <span
+            class="display-1 font-weight-black"
+            style="border-bottom: 5px solid blue !important"
+            >{{ question.question_text }}</span
+          >
+        </v-col>
+      </v-row>
     </div>
 
     <v-row>
       <v-col cols="4"></v-col>
       <v-col cols="4">
         <div class="d-flex justify-center mt-15">
-          <v-card class="pa-8 mt-10"
-          >
+          <v-card class="pa-8 mt-10">
             <v-row>
               <v-col
-                  cols="6"
-                  sm="12"
-                  v-for="(country, index) in question.countries"
-                  :key="country._id"
-                  class="d-flex justify-center "
+                cols="6"
+                sm="12"
+                v-for="(country, index) in question.countries"
+                :key="country._id"
+                class="d-flex justify-center"
               >
                 <v-btn
-                    :color="colors[index]"
-                    outlined
-                    @click="answer(country._id)"
-                    class="buttonz"
+                  :color="colors[index]"
+                  outlined
+                  @click="answer(country._id)"
+                  class="buttonz"
                 >
-                  {{country.name}}
+                  {{ country.name }}
                 </v-btn>
               </v-col>
             </v-row>
           </v-card>
-
         </div>
         <div v-if="waiting_players" class="text-center mt-5 pa-5">
-          <h1 class="display-1 font-weight-black demo" :id="id">{{txt}}</h1>
+          <h1 class="display-1 font-weight-black demo" :id="id">{{ txt }}</h1>
           <v-progress-linear
-              indeterminate
-              color="cyan darken-2"
-              class="mt-5"
+            indeterminate
+            color="cyan darken-2"
+            class="mt-5"
           ></v-progress-linear>
         </div>
-
       </v-col>
       <v-col cols="4">
-        <player-points :players="question.players"></player-points>
+        <player-points :players="question.players" :question_current="question.game_round" :question_num="question.game_rounds"></player-points>
       </v-col>
     </v-row>
   </div>
@@ -65,92 +66,97 @@ import playerPoints from "./playerPoints";
 export default {
   name: "questionRound",
   components: {
-    playerPoints
+    playerPoints,
   },
   props: {
-    question: Object
+    question: Object,
   },
-  data(){
-    return{
-      colors: ["red","orange","green","blue"],
+  data() {
+    return {
+      colors: ["red", "orange", "green", "blue"],
       waiting_players: false,
       id: "demo",
       txt: "Waiting for players..",
-      hasAnswered: false
-    }
+      hasAnswered: false,
+    };
   },
-  created(){
-
-    this.$parent.progressbar_color = "light-blue"
+  created() {
+    this.$parent.progressbar_color = "light-blue";
   },
   mounted() {
-    this.timebar()
+    this.timebar();
   },
   watch: {
-    question: function(){
-      this.timebar()
-      this.hasAnswered = false
+    question: function () {
+      this.timebar();
+      this.hasAnswered = false;
       this.enableButtons();
-    }
-  },
-  methods:{
-    answer(id){
-      console.log(id);
-      this.disableButtons()
-      this.$parent.submitAnswer(id, this.$parent.timebar_value);
-      this.hasAnswered = true
     },
-    enableButtons(){
-      let buttons = document.getElementsByClassName('buttonz');
-      buttons.forEach(function(b){
+  },
+  methods: {
+    answer(id) {
+      this.disableButtons();
+      this.$parent.submitAnswer(id, this.$parent.timebar_value);
+      this.hasAnswered = true;
+    },
+    enableButtons() {
+      let buttons = document.getElementsByClassName("buttonz");
+      buttons.forEach(function (b) {
         b.setAttribute("disabled", false);
       });
     },
-    disableButtons(){
-      let buttons = document.getElementsByClassName('buttonz');
-      buttons.forEach(function(b){
+    disableButtons() {
+      let buttons = document.getElementsByClassName("buttonz");
+      buttons.forEach(function (b) {
         b.setAttribute("disabled", true);
       });
     },
     stateChange() {
-
-      setTimeout( () => {
-
-         this.$parent.next()
+      setTimeout(() => {
+        this.$parent.next();
       }, 3500);
     },
-    timebar(){
+    timebar() {
       const limitedInterval = setInterval(() => {
-        if (this.$parent.timebar_value==100) {
-
+        if (this.$parent.timebar_value == 100) {
           clearInterval(limitedInterval);
-
-          if(this.$parent.game_ended_prev){
-            setTimeout( () => {
-              this.$parent.rounds = false
-              this.$parent.game_ended = true;
-            }, 2000);
-          }else{
-            if(!this.hasAnswered) {
-              this.$parent.submitAnswer("60aeb08e4ebd2a1b9bf7d779",110);
-              this.$parent.progressbar_color = "red"
-              this.stateChange()
-
-            }
-            else{
-              this.$parent.progressbar_color = this.$parent.progressbar_color_response
-
-              this.stateChange()
-            }
-
-
+          if(!this.hasAnswered){
+            this.$parent.submitAnswer("60aeb08e4ebd2a1b9bf7d779", 110);
+            this.$parent.progressbar_color = "red";
+            this.stateChange();
+            setTimeout(()=>{
+              if(this.$parent.game_ended_prev){
+                this.$parent.rounds = false;
+                this.$parent.game_ended = true;
+              }
+            },2000);
+          }else {
+            this.$parent.progressbar_color =
+                this.$parent.progressbar_color_response;
+            this.stateChange();
           }
 
 
-        }else{
-          this.$parent.timebar_value=this.$parent.timebar_value+10;
+       /*   if (this.$parent.game_ended_prev) {
+            setTimeout(() => {
+              this.$parent.rounds = false;
+              this.$parent.game_ended = true;
+            }, 2000);
+          } else {
+            if (!this.hasAnswered) {
+              this.$parent.submitAnswer("60aeb08e4ebd2a1b9bf7d779", 110);
+              this.$parent.progressbar_color = "red";
+              this.stateChange();
+            } else {
+              this.$parent.progressbar_color =
+                this.$parent.progressbar_color_response;
+              this.stateChange();
+            }
+          }*/
+        } else {
+          this.$parent.timebar_value = this.$parent.timebar_value + 10;
         }
-      },  1000);
+      }, 1000);
     },
     typeWriter() {
       let txt = "Waiting for players..";
@@ -162,10 +168,9 @@ export default {
         i++;
         setTimeout(this.typeWriter(), speed);
       }
-    }
-  }
-
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -10,7 +10,7 @@
               outlined
               color="indigo"
           >
-            {{player.username}}
+             {{player.username}}
           </v-btn>
         </div>
       </v-card>
@@ -23,7 +23,12 @@ export default {
   name: "gamePlayers",
   props: {
     players: Array
-  }
+  },
+  data(){
+    return{
+      icon: 'mdi-crown'
+    }
+  },
 }
 </script>
 

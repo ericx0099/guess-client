@@ -6,17 +6,18 @@
       <v-row class="d-flex justify-center">
         <v-col cols="9">
           <v-row class="d-flex justify-center">
-            <v-col
-                cols="6"
-            >
-              <p class="text-center display-2">Game Code: <span class="font-weight-black">{{game_token}}</span></p>
+            <v-col cols="6">
+              <p class="text-center display-2">
+                Game Code:
+                <span class="font-weight-black">{{ game_token }}</span>
+              </p>
               <div class="d-flex justify-center">
                 <v-btn
-                    rounded
-                    color="primary"
-                    dark
-                    v-if="creator_id == $store.state.auth.user._id "
-                    @click="startGame"
+                  rounded
+                  color="primary"
+                  dark
+                  v-if="creator_id == $store.state.auth.user._id"
+                  @click="startGame"
                 >
                   Start game!
                   <v-icon>mdi-play-circle</v-icon>
@@ -50,7 +51,7 @@ export default {
     createGame,
     gamePlayers,
     questionRound,
-    gameEnded
+    gameEnded,
   },
   data() {
     return {
@@ -61,14 +62,14 @@ export default {
       waiting_lobby: false,
       players: [],
       creator_id: null,
-      rounds : false,
+      rounds: false,
       question: null,
       next_question: null,
       progressbar_color: "light-blue",
-      progressbar_color_response : '',
+      progressbar_color_response: "",
       timebar_value: 0,
       game_ended: false,
-      game_ended_prev: false
+      game_ended_prev: false,
     };
   },
   created() {
@@ -80,58 +81,70 @@ export default {
   },
   methods: {
     socket() {
-      socket.on('new_player', (data) => {
-        this.creator_id = data.creator._id
+      socket.on("new_player", (data) => {
+        this.creator_id = data.creator._id;
         this.waiting_lobby = true;
         this.creating = false;
         this.joining = false;
-        this.players = data.users
+        this.players = data.users;
       });
-      socket.on('new_question', (data) => {
+      socket.on("new_question", (data) => {
         this.waiting_lobby = false;
-        this.creating = false
+        this.creating = false;
         this.joining = false;
         this.rounds = true;
-        if(data.countries.length===0){
+        if (data.countries.length === 0) {
           this.game_ended_prev = true;
-          this.players = data.players
-        }else{
-          if(data.game_round == 1){
-            this.question = data
-          }else{
-            this.next_question = data
+          this.players = data.players;
+        } else {
+          if (data.game_round == 1) {
+            this.question = data;
+            console.log("if->")
+            console.log(data);
+          } else {
+            this.next_question = data;
+            console.log("else->")
+            console.log(data);
           }
         }
-
-      })
-      socket.on("answer-response", (data)=>{
-        console.log(data)
-        if(data == "2"){
+      });
+      socket.on("answer-response", (data) => {
+        if (data == "2") {
           this.progressbar_color_response = "light-green";
-        }else{
+        } else {
           this.progressbar_color_response = "red";
         }
-      })
-      socket.on('error', (data) => {
+      });
+      socket.on("error", (data) => {
         this.$vToastify.error(data);
       });
-
     },
-    next(){
-      this.question = this.next_question
-      this.progressbar_color = "light-blue"
+    next() {
+      this.question = this.next_question;
+      this.progressbar_color = "light-blue";
       this.timebar_value = 0;
     },
-    join_game(){
-      socket.emit("join-game", {user_id: this.$store.state.auth.user._id, game_token: this.game_token})
+    join_game() {
+      socket.emit("join-game", {
+        user_id: this.$store.state.auth.user._id,
+        game_token: this.game_token,
+      });
     },
-    startGame(){
-      socket.emit("start-game", {user_id: this.$store.state.auth.user._id, game_token: this.game_token})
+    startGame() {
+      socket.emit("start-game", {
+        user_id: this.$store.state.auth.user._id,
+        game_token: this.game_token,
+      });
     },
-    submitAnswer(id, time){
-      console.log("time=>"+time);
-      socket.emit("submit-answer", {answer: id, question: this.question.question_id, userId: this.$store.state.auth.user._id, game_token: this.game_token,time:time})
-    }
+    submitAnswer(id, time) {
+      socket.emit("submit-answer", {
+        answer: id,
+        question: this.question.question_id,
+        userId: this.$store.state.auth.user._id,
+        game_token: this.game_token,
+        time: time,
+      });
+    },
   },
 };
 </script>
