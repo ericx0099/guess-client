@@ -101,7 +101,7 @@ export default {
         this.players = data.users;
         this.checkGameToken();
       });
-      socket.on("new_question", (data) => {
+      socket.on("new_question", (data) =>{
         this.waiting_lobby = false;
         this.creating = false;
         this.joining = false;
@@ -111,6 +111,7 @@ export default {
           this.players = data.players;
         } else {
           if (data.game_round == 1) {
+            console.log("HEEEEEEERE");
             this.question = data;
             console.log("if->")
             console.log(data);
@@ -174,6 +175,12 @@ export default {
         game_token: this.game_token,
         time: time,
       });
+      setTimeout(()=>{
+        socket.emit("get-question", {
+          game_token: this.game_token,
+          userId: this.$store.state.auth.user._id,
+        });
+      },999)
     },
     kickUser(id){
       socket.emit('kick-user',{
