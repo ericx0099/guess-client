@@ -102,6 +102,9 @@ export default {
         this.checkGameToken();
       });
       socket.on("new_question", (data) =>{
+        console.log("NEW QUESTION");
+        console.log(data);
+        console.log("----------------");
         this.waiting_lobby = false;
         this.creating = false;
         this.joining = false;
@@ -145,6 +148,7 @@ export default {
       this.question = this.next_question;
       this.progressbar_color = "light-blue";
       this.timebar_value = 0;
+      console.log("emiting next");
     },
     join_game() {
       socket.emit("join-game", {
@@ -168,6 +172,7 @@ export default {
       });
     },
     submitAnswer(id, time) {
+      console.log("EMITING SUBMIT ANSWER");
       socket.emit("submit-answer", {
         answer: id,
         question: this.question.question_id,
@@ -175,12 +180,18 @@ export default {
         game_token: this.game_token,
         time: time,
       });
-      setTimeout(()=>{
+     /* setTimeout(()=>{
         socket.emit("get-question", {
           game_token: this.game_token,
           userId: this.$store.state.auth.user._id,
         });
-      },999)
+      },999)*/
+    },
+    getQuestion(){
+      socket.emit("get-question", {
+        game_token: this.game_token,
+        userId: this.$store.state.auth.user._id,
+      });
     },
     kickUser(id){
       socket.emit('kick-user',{
