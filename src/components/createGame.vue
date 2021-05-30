@@ -25,9 +25,7 @@
                 dark
                 large
                 width="100%"
-                @click="
-                  createGame
-                "
+                @click="createGame"
               >
                 Create new Game!
               </v-btn>
@@ -88,13 +86,18 @@ export default {
       axios
         .post("http://localhost:3000/api", mutation, axiosConfig)
         .then((res) => {
-          if(res.data.data.createGame.uniq_token){
+          if (res.data.data.createGame.uniq_token) {
             this.$parent.game_token = res.data.data.createGame.uniq_token;
+            this.$cookies.set(
+              "game-token",
+              res.data.data.createGame.uniq_token,
+              "1h"
+            );
             this.$parent.waiting_lobby = true;
             this.$parent.creating = false;
             this.$parent.joining = false;
             this.$parent.join_game();
-          }else{
+          } else {
             this.$vToastify.error("Something went wrong!");
           }
         })

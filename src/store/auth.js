@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import router from '../router'
 export default {
   namespaced: true,
   state: {
@@ -18,11 +18,13 @@ export default {
     },
     SET_USER(state, data) {
       state.user = data;
+
     },
     UNSET_DATA(state) {
       state.token = null;
       state.user = null;
       this._vm.$cookies.remove("user-token");
+      router.push('/');
     },
   },
   actions: {
@@ -49,6 +51,7 @@ export default {
         .post("http://localhost:3000/api", loginData)
         .then((resp) => {
           response = resp;
+          router.push('/play');
         })
         .catch((err) => {
           this._vm.$vToastify.error({
@@ -69,6 +72,7 @@ export default {
           defaultTitle: true,
           canPause: false,
         });
+
         dataToAttempt = {
           token: response.data.data.login.token,
         };
@@ -113,6 +117,7 @@ export default {
             response = res;
           });
         commit("SET_USER", response.data.data.me);
+
       } catch {
         commit("UNSET_DATA");
       }

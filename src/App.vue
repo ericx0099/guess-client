@@ -12,7 +12,7 @@
           class="mx-2"
           @click="newQuestion"
       >
-         <span class="mx-2">New Question</span> <v-icon>mdi-comment-plus-outline</v-icon>
+        <v-icon>mdi-comment-plus-outline</v-icon><span class=" mx-2 hidden-sm-and-down">New Question</span>
       </v-btn>
       <div class="text-center mx-2" v-if="$store.state.auth.user && $store.state.auth.user.isAdmin">
         <v-menu offset-y>
@@ -23,7 +23,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
-              Administrate
+              <v-icon>mdi-credit-card</v-icon><span class="hidden-sm-and-down">Administrate</span>
             </v-btn>
           </template>
           <v-list>
@@ -46,7 +46,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
-              {{ $store.state.auth.user.username }}
+              <v-icon>mdi-account-circle</v-icon>  <span>{{ $store.state.auth.user.username }}</span>
             </v-btn>
           </template>
           <v-list>
@@ -73,7 +73,7 @@
               dark
               @click="toLogin"
           >
-            <span class="mr-2">Login</span> <v-icon>mdi-account-key</v-icon>
+            <span class="mr-2" v-show="$vuetify.breakpoint.md">Login</span> <v-icon>mdi-account-key</v-icon>
           </v-btn>
       </div>
 
@@ -83,7 +83,7 @@
              color="primary"
              dark
       >
-        <span>Switch Mode</span> <v-icon>mdi-theme-light-dark</v-icon>
+        <span class="hidden-sm-and-down">Switch Mode</span> <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
 
       <v-btn
@@ -91,7 +91,7 @@
           class="mx-2"
           @click="$router.push('/play');"
       >
-        <span class="mr-2" >Play</span>
+        <span class="mr-2 hidden-sm-and-down" >Play</span>
         <v-icon>mdi-gamepad-variant-outline</v-icon>
       </v-btn>
     </v-app-bar>

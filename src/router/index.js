@@ -6,6 +6,7 @@ import Login from "../views/Login";
 import Country from "../views/Country";
 import Play from "../views/Play";
 import submitQuestion from "../views/submitQuestion";
+import Profile from "../views/Profile";
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,11 @@ const routes = [
     path: "/submit-question",
     name: "Submitquestion",
     component: submitQuestion
+  },
+  {
+    path: "/profile",
+    name:"Profile",
+    component: Profile
   }
 ];
 

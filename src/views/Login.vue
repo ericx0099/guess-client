@@ -32,6 +32,7 @@
                   >
                 </v-card-text>
                 <v-card-actions> </v-card-actions>
+                <p class="pa-2 text-center">Still dont have an account? <router-link to="/register">Register!</router-link></p>
               </v-card>
             </v-flex>
           </v-layout>

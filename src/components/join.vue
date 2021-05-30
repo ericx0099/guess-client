@@ -64,7 +64,6 @@ export default {
     join() {
       this.$parent.game_token = this.pin;
       this.$parent.join_game();
-
     },
   },
 };

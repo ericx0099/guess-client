@@ -102,26 +102,22 @@ export default {
         this.checkGameToken();
       });
       socket.on("new_question", (data) =>{
-        console.log("NEW QUESTION");
-        console.log(data);
-        console.log("----------------");
         this.waiting_lobby = false;
         this.creating = false;
         this.joining = false;
         this.rounds = true;
         if (data.countries.length === 0) {
+          this.$cookies.remove('game-token');
           this.game_ended_prev = true;
           this.players = data.players;
         } else {
           if (data.game_round == 1) {
-            console.log("HEEEEEEERE");
+
             this.question = data;
-            console.log("if->")
-            console.log(data);
+
           } else {
             this.next_question = data;
-            console.log("else->")
-            console.log(data);
+
           }
         }
       });
@@ -135,10 +131,11 @@ export default {
       socket.on("user-kicked", (data)=>{
        this.players = data;
       });
-      socket.on('uniq_self_kick',(data) => {
-        console.log(data);
+      socket.on('uniq_self_kick',() => {
+        this.$cookies.remove('game-token');
         this.$vToastify.info("Host kicked you from the lobby");
         this.$router.push('/');
+        socket.disconnect()
       });
       socket.on("error", (data) => {
         this.$vToastify.error(data);
@@ -148,22 +145,22 @@ export default {
       this.question = this.next_question;
       this.progressbar_color = "light-blue";
       this.timebar_value = 0;
-      console.log("emiting next");
+
     },
     join_game() {
       socket.emit("join-game", {
         user_id: this.$store.state.auth.user._id,
         game_token: this.game_token,
-        already: false
       });
     },
     join_game_cookie(token){
       console.log("join game cookie token=>"+ token);
-      socket.emit("join-game", {
-        user_id: this.$store.state.auth.user._id,
-        game_token: token,
-        already: true
-      });
+      setTimeout(()=>{
+        socket.emit("join-game", {
+          user_id: this.$store.state.auth.user._id,
+          game_token: token,
+        });
+      },200)
     },
     startGame() {
       socket.emit("start-game", {
@@ -172,7 +169,7 @@ export default {
       });
     },
     submitAnswer(id, time) {
-      console.log("EMITING SUBMIT ANSWER");
+
       socket.emit("submit-answer", {
         answer: id,
         question: this.question.question_id,
@@ -180,12 +177,12 @@ export default {
         game_token: this.game_token,
         time: time,
       });
-     /* setTimeout(()=>{
+      setTimeout(()=>{
         socket.emit("get-question", {
           game_token: this.game_token,
           userId: this.$store.state.auth.user._id,
         });
-      },999)*/
+      },999)
     },
     getQuestion(){
       socket.emit("get-question", {

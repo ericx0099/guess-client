@@ -26,13 +26,17 @@
           required
         ></v-text-field>
 
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[(v) => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
-
+        <v-select
+            v-if="countries"
+            v-model="country"
+            :items="countries"
+            item-text="country"
+            item-value="id"
+            persistent-hint
+            return-object
+            single-line
+            label="Select your country"
+        ></v-select>
         <v-btn
           :disabled="!valid"
           color="success"
@@ -50,6 +54,8 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    /*select: { country: "Spain", id: "60a6b6ddf7adf9126b96f5d9" },*/
+    country: null,
     valid: true,
     username: "",
     nameRules: [
@@ -67,7 +73,25 @@ export default {
       /*      v => /.+@.+\..+/.test(v) || 'Password must be valid',*/
     ],
     checkbox: false,
+    countries: null
   }),
+  created(){
+    const query = {
+      query: `
+        query{
+          countries{
+            _id
+            name
+          }
+        }
+      `,
+    };
+    axios.post("http://localhost:3000/api", query).then((res) => {
+      this.countries = res.data.data.countries.map(function (country) {
+        return { country: country.name, id: country._id };
+      });
+    });
+  },
 
   methods: {
     validate() {
@@ -79,7 +103,7 @@ export default {
       const reqBody = {
         query: `
           mutation {
-            createUser(userInput: {email: "${this.email}", password: "${this.password}", username: "${this.username}", isAdmin: false}){
+            createUser(userInput: {email: "${this.email}", password: "${this.password}", username: "${this.username}", isAdmin: false, country: "${this.country.id}"}){
               _id
               email
               username
