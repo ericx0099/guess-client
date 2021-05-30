@@ -24,11 +24,14 @@ export default {
   },
   data(){
     return{
-      info: null
+      info: null,
+      loading: false
     }
   },
   methods: {
     getGameInfo(id) {
+      this.loading = true;
+      this.info = null;
       const query = {
         query: `
           query{
@@ -43,7 +46,7 @@ export default {
         console.log(res);
         if(res.data.data.gameResults){
           this.info = res.data.data.gameResults
-          console.log(this.info);
+          this.loading = false;
         }
       });
     },

@@ -1,8 +1,18 @@
 <template>
   <div>
-    <div v-if="$parent.info" class="d-flex justify-center">
+    <div class="d-flex justify-center" v-if="$parent.loading">
+      <v-progress-circular
+          :size="70"
+          :width="7"
+          color="blue"
+          indeterminate
+
+      ></v-progress-circular>
+    </div>
+    <div v-if="$parent.info " class="d-flex justify-center">
       <v-list disabled>
         <v-subheader>Results</v-subheader>
+
         <v-list-item-group v-model="selectedItem" color="primary">
           <v-list-item
             v-for="(result, i) in $parent.info"
@@ -19,7 +29,7 @@
         </v-list-item-group>
       </v-list>
     </div>
-    <h1 v-else>Select a game!</h1>
+    <h1 v-if="!$parent.info && !$parent.loading" class="text-center">Select a game!</h1>
   </div>
 </template>
 

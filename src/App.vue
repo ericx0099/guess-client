@@ -51,6 +51,13 @@
           </template>
           <v-list>
             <v-list-item
+                @click="$router.push('/profile')"
+            >
+              <v-list-item-title>
+                <v-icon>mdi-face</v-icon>
+                Profile</v-list-item-title>
+            </v-list-item>
+            <v-list-item
                 @click="$vuetify.theme.dark = ! $vuetify.theme.dark"
             >
               <v-list-item-title>

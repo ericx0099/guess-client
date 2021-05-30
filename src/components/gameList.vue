@@ -3,7 +3,7 @@
     <p class="text-center">Your last games..</p>
     <v-card class="mx-auto" max-width="300" tile>
       <v-list dense>
-        <v-subheader>Last 10 Games</v-subheader>
+        <v-subheader>Last {{this.games.length}} Games</v-subheader>
         <v-list-item-group
           v-model="selectedGame"
           color="primary"
