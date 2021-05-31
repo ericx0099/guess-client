@@ -7,6 +7,7 @@ import Country from "../views/Country";
 import Play from "../views/Play";
 import submitQuestion from "../views/submitQuestion";
 import Profile from "../views/Profile";
+import Ranking from "../views/Ranking";
 
 Vue.use(VueRouter);
 
@@ -54,6 +55,11 @@ const routes = [
     path: "/profile",
     name:"Profile",
     component: Profile
+  },
+  {
+    path: "/ranking",
+    name: "Ranking",
+    component: Ranking
   }
 ];
 

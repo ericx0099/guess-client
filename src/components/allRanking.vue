@@ -3,14 +3,15 @@
     <v-toolbar>
       <v-tabs
           dark
-          background-color="primary"
+          background-color="transparent"
+          color="basil"
           grow
       >
         <v-tab @click="global = true; country = false">
           <v-badge
               icon="mdi-podium"
           >
-            Global Ranking
+            <span style="color:black" >Global Ranking</span>
           </v-badge>
         </v-tab>
 
@@ -18,7 +19,7 @@
           <v-badge
               icon="mdi-flag-minus-outline"
           >
-            Country Ranking
+            <span style="color:black">Country Ranking</span>
           </v-badge>
         </v-tab>
 
@@ -45,5 +46,7 @@ export default {
 </script>
 
 <style scoped>
-
+.v-toolbar {
+  color: #356859 !important;
+}
 </style>
