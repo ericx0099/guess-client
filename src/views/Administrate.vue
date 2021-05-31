@@ -44,6 +44,12 @@ export default {
       questions: true,
       countries: false
     }
+  },
+  created(){
+    if(!this.$store.state.auth.user.isAdmin){
+      this.$vToastify.warning("Must be Admin!");
+      this.$router.push('/');
+    }
   }
 }
 </script>

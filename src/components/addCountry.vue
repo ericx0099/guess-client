@@ -22,6 +22,12 @@ export default {
     name: "",
     nameRules: [(v) => !!v || "Name is required"],
   }),
+  created(){
+    if(!this.$store.state.auth.user.isAdmin){
+      this.$vToastify.warning("Must be Admin!");
+      this.$router.push('/');
+    }
+  },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {

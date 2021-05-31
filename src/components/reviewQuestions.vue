@@ -4,7 +4,13 @@
 
 <script>
 export default {
-  name: "reviewQuestions"
+  name: "reviewQuestions",
+  created(){
+    if(!this.$store.state.auth.user.isAdmin){
+      this.$vToastify.warning("Must be Admin!");
+      this.$router.push('/');
+    }
+  }
 }
 </script>
 
