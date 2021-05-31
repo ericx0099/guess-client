@@ -72,7 +72,7 @@ export default {
         }
       `,
     };
-    axios.post("http://localhost:3000/api", query).then((res) => {
+    axios.post(this.$apiPath, query).then((res) => {
       this.countries = res.data.data.countries.map(function (country) {
         return { country: country.name, id: country._id };
       });
@@ -102,7 +102,7 @@ export default {
       `,
       };
       console.log(query);
-      axios.post("http://localhost:3000/api", query).then((res) => {
+      axios.post(this.$apiPath, query).then((res) => {
         if(res.data.data.countryRanking){
           this.ranking = res.data.data.countryRanking;
         }

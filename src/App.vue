@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-app-bar app color="indigo" dark  class="lighten-1 white--text">
-      <div class="d-flex align-center">
-        Countryz
+      <div class="d-flex align-center pa-2" style="cursor: pointer">
+        <span @click="$router.push('/');" >Countryz</span>
       </div>
       <v-spacer></v-spacer>
       <v-btn
@@ -129,9 +129,11 @@
     <v-main padless>
       <router-view />
     </v-main>
+
     <v-footer
         dark
         padless
+
     >
       <v-card
           flat
@@ -189,6 +191,8 @@ export default {
   }),
   created() {
     this.checkCookie()
+    console.log(this.$apiPath);
+    console.log(this.$socketPath);
   },
   computed: {
     showMenu() {

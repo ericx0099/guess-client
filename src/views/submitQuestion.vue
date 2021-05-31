@@ -71,11 +71,10 @@ export default {
         }
       `,
     };
-    axios.post("http://localhost:3000/api", query).then((res) => {
+    axios.post(this.$apiPath, query).then((res) => {
       this.countries = res.data.data.countries.map(function (country) {
         return { country: country.name, id: country._id };
       });
-      console.log(this.countries);
     });
   },
   methods: {
@@ -100,9 +99,11 @@ export default {
         },
       };
       axios
-        .post("http://localhost:3000/api", mutation, axiosConfig)
+        .post(this.$apiPath, mutation, axiosConfig)
         .then((res) => {
-          console.log(res);
+          if(res.data.data.createQuestion){
+            this.$vToastify.success("Question Submitted successfully!");
+          }
         });
     },
   },

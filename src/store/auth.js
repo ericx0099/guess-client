@@ -48,7 +48,7 @@ export default {
       };
       let response = null;
       await axios
-        .post("http://localhost:3000/api", loginData)
+        .post(this._vm.$apiPath, loginData)
         .then((resp) => {
           response = resp;
           router.push('/play');
@@ -112,7 +112,7 @@ export default {
       let response;
       try {
         await axios
-          .post("http://localhost:3000/api", me, axiosConfig)
+          .post(this._vm.$apiPath, me, axiosConfig)
           .then((res) => {
             response = res;
           });

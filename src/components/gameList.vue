@@ -66,7 +66,7 @@ export default {
         Authorization: "Bearer " + this.$store.state.auth.token,
       },
     };
-    axios.post("http://localhost:3000/api", query, axiosConfig).then((res) => {
+    axios.post(this.$apiPath, query, axiosConfig).then((res) => {
       if (res.data.data.lastGames.length > 0) {
         this.games = res.data.data.lastGames;
       }

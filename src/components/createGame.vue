@@ -84,7 +84,7 @@ export default {
         },
       };
       axios
-        .post("http://localhost:3000/api", mutation, axiosConfig)
+        .post(this.$apiPath, mutation, axiosConfig)
         .then((res) => {
           if (res.data.data.createGame.uniq_token) {
             this.$parent.game_token = res.data.data.createGame.uniq_token;

@@ -1,133 +1,259 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
+  <div>
+    <v-row class="d-flex justify-center">
+      <v-col
+        md="4"
+        sm="0"
+        xs="0"
+        v-if="rightCountries.length"
+        class="hidden-md-and-down"
+      >
+        <div
+          v-for="country in number"
+          :key="country"
+          class="justify-center d-flex my-15"
+        >
+          <v-btn
+            @click="openLink(rightCountries[country].country)"
+            :color="colors[country]"
+          >
+            {{ rightCountries[country].country }}
+          </v-btn>
+        </div>
+      </v-col>
+      <v-col md="4" sm="12" xs="12" class="text-center">
+        <div>
+          <v-img
+            src="https://images.vexels.com/media/users/3/142592/isolated/preview/f89fe182edcec773c324c73f6f8c352f-isotipo-origami-letra-c-by-vexels.png"
+            class="my-3"
+            contain
+            height="200"
+          />
+
+          <div class="mb-4">
+            <h1 class="display-2 font-weight-bold mb-3">COUNTRYZ!</h1>
+
+            <p class="subheading font-weight-regular">
+              For those who like to play and learn!
+            </p>
+          </div>
+          <div>
+            <v-btn
+              color="warning"
+              dark
+              large
+              width="100%"
+              @click="$router.push(getRoute())"
+            >
+              <span>{{ getText() }}</span>
+            </v-btn>
+          </div>
+          <div class="mt-10">
+            <v-row>
+              <v-col md="12" sm="12" xs="12">
+                <v-card tile elevation="11">
+                  <v-row>
+                    <v-col md="6" sm="6" xs="6" background-color="purple">
+                      <h4 class="font-weight-black display-1 text-center">
+                        Make learning awesome!
+                      </h4>
+
+                      <p class="mt-5">
+                        Countryz delivers engaging learning to billions.
+                      </p>
+                      <v-btn @click="$router.push('/register')" color="purple"
+                        >Sign Up and Learn!</v-btn
+                      >
+                    </v-col>
+                    <v-col md="6" sm="6" xs="6">
+                      <v-img
+                        src="https://kahoot.com/files/2020/05/main-image-cropped.jpg"
+                      >
+                      </v-img>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+          </div>
+          <v-spacer></v-spacer>
+          <div class="text-center mt-15">
+            <h1 class="display-2 font-weight-black">¿How it works?</h1>
+          </div>
+          <v-row class="mt-5">
+            <v-col md="4" class="my-2" >
+              <v-card>
+                <v-row>
+                  <v-col cols="12" >
+                    <div style="background-color: #3469E4">
+                      <video
+                          src="https://kahoot.com/files/2019/07/kc_1.webm"
+                          autoplay
+                          loop
+                          playsinline="true"
+                          style="width:200px; height: 120px"
+                      ></video>
+                    </div>
+                    <div class="text-center" >
+                      <h1>Create</h1>
+                      <p>
+                        It only takes minutes to create a learning game or
+                        trivia quiz on any topic, in any language.
+                      </p>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
+            <v-col md="4" class="my-2" >
+              <v-card>
+                <v-row>
+                  <v-col cols="12">
+                    <div style="background-color: #B934E4">
+                      <video
+                          src="https://kahoot.com/files/2019/07/kc2_2b.webm"
+                          autoplay
+                          loop
+                          style="width:200px; height: 120px"
+
+                      ></video>
+                    </div>
+                    <div class="text-center">
+                      <h1 >Share Pin</h1>
+                      <p>
+                        Host a live game with questions on a big screen or share
+                        a game with remote players.
+                      </p>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
+            <v-col md="4" class="my-2" >
+              <v-card>
+                <v-row >
+                  <v-col cols="12">
+                    <div style="background-color: #34E447">
+                      <video
+                          autoplay
+                          style="width:200px; height: 120px"
+                          src="https://kahoot.com/files/2019/07/kc_3.webm"
+                          loop
+                          preload
+                      >
+                      </video>
+                    </div>
+                    <div class="text-center">
+                      <h1>Play!</h1>
+                      <p>
+                        Game on! Join a Countryz with a PIN provided by the host
+                        and answer questions on your device.
+                      </p>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
       </v-col>
 
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">Welcome to Vuetify</h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br />please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank"
-            >Discord Community</a
+      <v-col
+        md="4"
+        sm="0"
+        xs="0"
+        v-if="leftCountries.length"
+        class="hidden-md-and-down"
+      >
+        <div
+          v-for="country in number"
+          :key="country"
+          class="justify-center d-flex my-15"
+        >
+          <v-btn
+            :color="colors[country]"
+            @click="
+              openLink(leftCountries[leftCountries.length - country].country)
+            "
           >
-        </p>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col class="mb-5" cols="12">
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
+            {{ leftCountries[leftCountries.length - country].country }}
+          </v-btn>
+        </div>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "HelloWorld",
 
   data: () => ({
-    ecosystem: [
-      {
-        text: "vuetify-loader",
-        href: "https://github.com/vuetifyjs/vuetify-loader",
-      },
-      {
-        text: "github",
-        href: "https://github.com/vuetifyjs/vuetify",
-      },
-      {
-        text: "awesome-vuetify",
-        href: "https://github.com/vuetifyjs/awesome-vuetify",
-      },
+    rightCountries: [],
+    leftCountries: [],
+    colors: [
+      "red",
+      "orange",
+      "green",
+      "blue",
+      "red",
+      "orange",
+      "green",
+      "blue",
+      "red",
+      "orange",
+      "green",
+      "blue",
+      "red",
+      "orange",
+      "green",
+      "blue",
     ],
-    importantLinks: [
-      {
-        text: "Documentation",
-        href: "https://vuetifyjs.com",
-      },
-      {
-        text: "Chat",
-        href: "https://community.vuetifyjs.com",
-      },
-      {
-        text: "Made with Vuetify",
-        href: "https://madewithvuejs.com/vuetify",
-      },
-      {
-        text: "Twitter",
-        href: "https://twitter.com/vuetifyjs",
-      },
-      {
-        text: "Articles",
-        href: "https://medium.com/vuetify",
-      },
-    ],
-    whatsNext: [
-      {
-        text: "Explore components",
-        href: "https://vuetifyjs.com/components/api-explorer",
-      },
-      {
-        text: "Select a layout",
-        href: "https://vuetifyjs.com/getting-started/pre-made-layouts",
-      },
-      {
-        text: "Frequently Asked Questions",
-        href: "https://vuetifyjs.com/getting-started/frequently-asked-questions",
-      },
-    ],
+    number: 12,
   }),
+  created() {
+    const query = {
+      query: `
+        query{
+          countries{
+            name
+          }
+        }
+      `,
+    };
+    axios.post(this.$apiPath, query).then((res) => {
+      let countries = res.data.data.countries.map(function (country) {
+        return { country: country.name };
+      });
+      this.rightCountries = this.shuffle(countries);
+      this.leftCountries = this.rightCountries.reverse();
+    });
+  },
+  methods: {
+    shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    },
+    openLink(t) {
+      window.open(`https://www.google.com/search?q=${t}`);
+    },
+    getText() {
+      if (this.$store.state.auth.user) {
+        return "Play!";
+      } else {
+        return "Login to Play!";
+      }
+    },
+    getRoute() {
+      if (this.$store.state.auth.user) {
+        return "/play";
+      } else {
+        return "/login";
+      }
+    },
+  },
 };
 </script>
+
+<style></style>

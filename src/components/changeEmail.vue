@@ -77,7 +77,7 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/api", mutation, axiosConfig)
+        .post(this.$apiPath, mutation, axiosConfig)
         .then((res) => {
           if (res.data.data.changeEmail) {
             this.snackbar = true;

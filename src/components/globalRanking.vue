@@ -63,7 +63,7 @@ export default {
         }
       `,
     };
-    axios.post("http://localhost:3000/api", query).then((res) => {
+    axios.post(this.$apiPath, query).then((res) => {
       if(res.data.data.globalRanking){
         this.ranking = res.data.data.globalRanking
       }

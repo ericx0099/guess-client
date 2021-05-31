@@ -86,7 +86,7 @@ export default {
         }
       `,
     };
-    axios.post("http://localhost:3000/api", query).then((res) => {
+    axios.post(this.$apiPath, query).then((res) => {
       this.countries = res.data.data.countries.map(function (country) {
         return { country: country.name, id: country._id };
       });
@@ -112,7 +112,7 @@ export default {
         `,
       };
       axios
-        .post("http://localhost:3000/api", reqBody)
+        .post(this.$apiPath, reqBody)
         .then((res) => {
          if(res.data.data.createUser){
            this.$vToastify.success("Registered Successfully! Now Login!");

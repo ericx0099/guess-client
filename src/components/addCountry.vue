@@ -50,7 +50,7 @@ export default {
         },
       };
       axios
-        .post("http://localhost:3000/api", mutation, axiosConfig)
+        .post(this.$apiPath, mutation, axiosConfig)
         .then((res) => {
           if (res.data.errors) {
             this.$vToastify.error(res.data.errors[0].message);
