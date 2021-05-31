@@ -8,6 +8,15 @@
       <v-btn
           color="indigo"
           dark
+          class="mx-2"
+          @click="$router.push('/ranking')"
+      >
+        <v-icon>mdi-trophy</v-icon><span class=" mx-2 hidden-sm-and-down">Ranking</span>
+      </v-btn>
+
+      <v-btn
+          color="indigo"
+          dark
           v-if="$store.state.auth.user"
           class="mx-2"
           @click="newQuestion"
