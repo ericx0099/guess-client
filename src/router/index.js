@@ -8,6 +8,8 @@ import Play from "../views/Play";
 import submitQuestion from "../views/submitQuestion";
 import Profile from "../views/Profile";
 import Ranking from "../views/Ranking";
+import Administrate from "../views/Administrate";
+import reviewQuestions from "../components/reviewQuestions";
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,11 @@ const routes = [
     component: Country
   },
   {
+    path: "/admin/questions",
+    name: "AdministrateQuestions",
+    component: reviewQuestions
+  },
+  {
     path: "/play",
     name: "Play",
     component: Play
@@ -60,6 +67,11 @@ const routes = [
     path: "/ranking",
     name: "Ranking",
     component: Ranking
+  },
+  {
+    path: "/administrate",
+    name: "Administrate",
+    component: Administrate
   }
 ];
 

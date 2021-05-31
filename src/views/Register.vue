@@ -114,7 +114,10 @@ export default {
       axios
         .post("http://localhost:3000/api", reqBody)
         .then((res) => {
-          console.log(res.data);
+         if(res.data.data.createUser){
+           this.$vToastify.success("Registered Successfully! Now Login!");
+           this.$router.push('/login');
+         }
         })
         .catch((err) => {
           const error = {

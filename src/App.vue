@@ -37,11 +37,25 @@
           </template>
           <v-list>
             <v-list-item
+                @click="$router.push('/administrate')"
+            >
+              <v-list-item-title>
+                <v-icon>mdi-key</v-icon>
+                Panel</v-list-item-title>
+            </v-list-item>
+            <v-list-item
               @click="toCountryAdmin"
             >
               <v-list-item-title>
                 <v-icon>mdi-flag-plus-outline</v-icon>
                 Add Country</v-list-item-title>
+            </v-list-item>
+            <v-list-item
+                @click="$router.push('/admin/questions')"
+            >
+              <v-list-item-title>
+                <v-icon>mdi-comment-question-outline</v-icon>
+                Review Questions</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -55,7 +69,7 @@
                 v-bind="attrs"
                 v-on="on"
             >
-              <v-icon>mdi-account-circle</v-icon>  <span>{{ $store.state.auth.user.username }}</span>
+              <v-icon>mdi-account-circle</v-icon>  <span class="hidden-xs-only">{{ $store.state.auth.user.username }}</span>
             </v-btn>
           </template>
           <v-list>
