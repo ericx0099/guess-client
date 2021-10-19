@@ -20,13 +20,13 @@ export default {
   name: "myGames",
   components: {
     gameList,
-    gameInfo
+    gameInfo,
   },
-  data(){
-    return{
+  data() {
+    return {
       info: null,
-      loading: false
-    }
+      loading: false,
+    };
   },
   methods: {
     getGameInfo(id) {
@@ -44,8 +44,8 @@ export default {
       };
       axios.post(this.$apiPath, query).then((res) => {
         console.log(res);
-        if(res.data.data.gameResults){
-          this.info = res.data.data.gameResults
+        if (res.data.data.gameResults) {
+          this.info = res.data.data.gameResults;
           this.loading = false;
         }
       });

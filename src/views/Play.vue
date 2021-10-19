@@ -78,18 +78,18 @@ export default {
       this.$router.push("/login");
     }
     this.socket();
-    this.gameToken()
+    this.gameToken();
   },
   methods: {
-    gameToken(){
-      if(this.$cookies.get('game-token')){
-        this.join_game_cookie(this.$cookies.get('game-token'));
-        this.game_token = this.$cookies.get('game-token');
+    gameToken() {
+      if (this.$cookies.get("game-token")) {
+        this.join_game_cookie(this.$cookies.get("game-token"));
+        this.game_token = this.$cookies.get("game-token");
       }
     },
-    checkGameToken(){
-      if(!this.$cookies.get('game-token')) {
-        this.$cookies.set('game-token',this.game_token,'1h');
+    checkGameToken() {
+      if (!this.$cookies.get("game-token")) {
+        this.$cookies.set("game-token", this.game_token, "1h");
       }
     },
     socket() {
@@ -101,23 +101,20 @@ export default {
         this.players = data.users;
         this.checkGameToken();
       });
-      socket.on("new_question", (data) =>{
+      socket.on("new_question", (data) => {
         this.waiting_lobby = false;
         this.creating = false;
         this.joining = false;
         this.rounds = true;
         if (data.countries.length === 0) {
-          this.$cookies.remove('game-token');
+          this.$cookies.remove("game-token");
           this.game_ended_prev = true;
           this.players = data.players;
         } else {
           if (data.game_round == 1) {
-
             this.question = data;
-
           } else {
             this.next_question = data;
-
           }
         }
       });
@@ -128,14 +125,14 @@ export default {
           this.progressbar_color_response = "red";
         }
       });
-      socket.on("user-kicked", (data)=>{
-       this.players = data;
+      socket.on("user-kicked", (data) => {
+        this.players = data;
       });
-      socket.on('uniq_self_kick',() => {
-        this.$cookies.remove('game-token');
+      socket.on("uniq_self_kick", () => {
+        this.$cookies.remove("game-token");
         this.$vToastify.info("Host kicked you from the lobby");
-        this.$router.push('/');
-        socket.disconnect()
+        this.$router.push("/");
+        socket.disconnect();
       });
       socket.on("error", (data) => {
         this.$vToastify.error(data);
@@ -145,7 +142,6 @@ export default {
       this.question = this.next_question;
       this.progressbar_color = "light-blue";
       this.timebar_value = 0;
-
     },
     join_game() {
       socket.emit("join-game", {
@@ -153,14 +149,14 @@ export default {
         game_token: this.game_token,
       });
     },
-    join_game_cookie(token){
-      console.log("join game cookie token=>"+ token);
-      setTimeout(()=>{
+    join_game_cookie(token) {
+      console.log("join game cookie token=>" + token);
+      setTimeout(() => {
         socket.emit("join-game", {
           user_id: this.$store.state.auth.user._id,
           game_token: token,
         });
-      },200)
+      }, 200);
     },
     startGame() {
       socket.emit("start-game", {
@@ -169,7 +165,6 @@ export default {
       });
     },
     submitAnswer(id, time) {
-
       socket.emit("submit-answer", {
         answer: id,
         question: this.question.question_id,
@@ -177,25 +172,25 @@ export default {
         game_token: this.game_token,
         time: time,
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         socket.emit("get-question", {
           game_token: this.game_token,
           userId: this.$store.state.auth.user._id,
         });
-      },999)
+      }, 999);
     },
-    getQuestion(){
+    getQuestion() {
       socket.emit("get-question", {
         game_token: this.game_token,
         userId: this.$store.state.auth.user._id,
       });
     },
-    kickUser(id){
-      socket.emit('kick-user',{
+    kickUser(id) {
+      socket.emit("kick-user", {
         game_token: this.game_token,
         userId: id,
-      })
-    }
+      });
+    },
   },
 };
 </script>

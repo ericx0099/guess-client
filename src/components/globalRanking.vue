@@ -5,25 +5,19 @@
     <div v-if="ranking.length">
       <div class="d-flex justify-center mt-6">
         <v-row class="d-flex justify-center">
-          <v-col md="5"
-            sm="10"
-                 xs="11"
-            >
+          <v-col md="5" sm="10" xs="11">
             <v-card tile>
               <v-list rounded>
                 <v-subheader>TOP 10</v-subheader>
-                <v-list-item-group
-                    color="primary"
-                >
-                  <v-list-item
-                      v-for="(item, i) in ranking"
-                      :key="i"
-
-                  >
+                <v-list-item-group color="primary">
+                  <v-list-item v-for="(item, i) in ranking" :key="i">
                     <v-list-item-icon>
-                      <v-icon v-text="i+1"></v-icon>
+                      <v-icon v-text="i + 1"></v-icon>
                     </v-list-item-icon>
-                    <div class="d-flex justify-space-between" style=" width: 100%; height: 100%">
+                    <div
+                      class="d-flex justify-space-between"
+                      style="width: 100%; height: 100%"
+                    >
                       <span v-text="item.username"></span>
                       <span v-text="item.points"></span>
                     </div>
@@ -43,14 +37,14 @@ import axios from "axios";
 import globalRankingSkeleton from "./globalRankingSkeleton";
 export default {
   name: "globalRanking",
-  components:{
-    globalRankingSkeleton
+  components: {
+    globalRankingSkeleton,
   },
-  data(){
-    return{
+  data() {
+    return {
       ranking: [],
       icon: "mdi-crown",
-    }
+    };
   },
   created() {
     const query = {
@@ -64,17 +58,17 @@ export default {
       `,
     };
     axios.post(this.$apiPath, query).then((res) => {
-      if(res.data.data.globalRanking){
-        this.ranking = res.data.data.globalRanking
+      if (res.data.data.globalRanking) {
+        this.ranking = res.data.data.globalRanking;
       }
     });
   },
-  methods:{
+  methods: {
     getIcon(i) {
       console.log(i);
       if (i === 1) return this.icon;
     },
-  }
+  },
 };
 </script>
 

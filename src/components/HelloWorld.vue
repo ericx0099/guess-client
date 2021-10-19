@@ -81,20 +81,20 @@
             <h1 class="display-2 font-weight-black">¿How it works?</h1>
           </div>
           <v-row class="mt-5">
-            <v-col md="4" class="my-2" >
+            <v-col md="4" class="my-2">
               <v-card>
                 <v-row>
-                  <v-col cols="12" >
-                    <div style="background-color: #3469E4">
+                  <v-col cols="12">
+                    <div style="background-color: #3469e4">
                       <video
-                          src="https://kahoot.com/files/2019/07/kc_1.webm"
-                          autoplay
-                          loop
-                          playsinline="true"
-                          style="width:200px; height: 120px"
+                        src="https://kahoot.com/files/2019/07/kc_1.webm"
+                        autoplay
+                        loop
+                        playsinline="true"
+                        style="width: 200px; height: 120px"
                       ></video>
                     </div>
-                    <div class="text-center" >
+                    <div class="text-center">
                       <h1>Create</h1>
                       <p>
                         It only takes minutes to create a learning game or
@@ -105,21 +105,20 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col md="4" class="my-2" >
+            <v-col md="4" class="my-2">
               <v-card>
                 <v-row>
                   <v-col cols="12">
-                    <div style="background-color: #B934E4">
+                    <div style="background-color: #b934e4">
                       <video
-                          src="https://kahoot.com/files/2019/07/kc2_2b.webm"
-                          autoplay
-                          loop
-                          style="width:200px; height: 120px"
-
+                        src="https://kahoot.com/files/2019/07/kc2_2b.webm"
+                        autoplay
+                        loop
+                        style="width: 200px; height: 120px"
                       ></video>
                     </div>
                     <div class="text-center">
-                      <h1 >Share Pin</h1>
+                      <h1>Share Pin</h1>
                       <p>
                         Host a live game with questions on a big screen or share
                         a game with remote players.
@@ -129,19 +128,18 @@
                 </v-row>
               </v-card>
             </v-col>
-            <v-col md="4" class="my-2" >
+            <v-col md="4" class="my-2">
               <v-card>
-                <v-row >
+                <v-row>
                   <v-col cols="12">
-                    <div style="background-color: #34E447">
+                    <div style="background-color: #34e447">
                       <video
-                          autoplay
-                          style="width:200px; height: 120px"
-                          src="https://kahoot.com/files/2019/07/kc_3.webm"
-                          loop
-                          preload
-                      >
-                      </video>
+                        autoplay
+                        style="width: 200px; height: 120px"
+                        src="https://kahoot.com/files/2019/07/kc_3.webm"
+                        loop
+                        preload
+                      ></video>
                     </div>
                     <div class="text-center">
                       <h1>Play!</h1>

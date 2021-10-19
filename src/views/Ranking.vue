@@ -9,12 +9,10 @@ import allRanking from "../components/allRanking";
 
 export default {
   name: "Ranking",
-  components:{
-    allRanking
-  }
-}
+  components: {
+    allRanking,
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

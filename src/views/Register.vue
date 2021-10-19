@@ -27,15 +27,15 @@
         ></v-text-field>
 
         <v-select
-            v-if="countries"
-            v-model="country"
-            :items="countries"
-            item-text="country"
-            item-value="id"
-            persistent-hint
-            return-object
-            single-line
-            label="Select your country"
+          v-if="countries"
+          v-model="country"
+          :items="countries"
+          item-text="country"
+          item-value="id"
+          persistent-hint
+          return-object
+          single-line
+          label="Select your country"
         ></v-select>
         <v-btn
           :disabled="!valid"
@@ -73,9 +73,9 @@ export default {
       /*      v => /.+@.+\..+/.test(v) || 'Password must be valid',*/
     ],
     checkbox: false,
-    countries: null
+    countries: null,
   }),
-  created(){
+  created() {
     const query = {
       query: `
         query{
@@ -114,10 +114,10 @@ export default {
       axios
         .post(this.$apiPath, reqBody)
         .then((res) => {
-         if(res.data.data.createUser){
-           this.$vToastify.success("Registered Successfully! Now Login!");
-           this.$router.push('/login');
-         }
+          if (res.data.data.createUser) {
+            this.$vToastify.success("Registered Successfully! Now Login!");
+            this.$router.push("/login");
+          }
         })
         .catch((err) => {
           const error = {

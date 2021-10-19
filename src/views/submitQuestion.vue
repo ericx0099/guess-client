@@ -98,13 +98,11 @@ export default {
           Authorization: "Bearer " + this.$store.state.auth.token,
         },
       };
-      axios
-        .post(this.$apiPath, mutation, axiosConfig)
-        .then((res) => {
-          if(res.data.data.createQuestion){
-            this.$vToastify.success("Question Submitted successfully!");
-          }
-        });
+      axios.post(this.$apiPath, mutation, axiosConfig).then((res) => {
+        if (res.data.data.createQuestion) {
+          this.$vToastify.success("Question Submitted successfully!");
+        }
+      });
     },
   },
   watch: {

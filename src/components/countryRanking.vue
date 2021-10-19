@@ -5,39 +5,34 @@
     <v-row class="justify-center d-flex">
       <v-col class="d-flex" md="4" sm="6" xs="4" v-if="countries">
         <v-select
-            v-model="select"
-            :hint="`${select.country}`"
-            :items="countries"
-            item-text="country"
-            item-value="id"
-            persistent-hint
-            return-object
-            single-line
-            label="Select the Answer"
+          v-model="select"
+          :hint="`${select.country}`"
+          :items="countries"
+          item-text="country"
+          item-value="id"
+          persistent-hint
+          return-object
+          single-line
+          label="Select the Answer"
         ></v-select>
       </v-col>
     </v-row>
     <div v-if="!loading && ranking.length">
       <div class="d-flex justify-center mt-6">
         <v-row class="d-flex justify-center">
-          <v-col md="5"
-                 sm="10"
-                 xs="11">
+          <v-col md="5" sm="10" xs="11">
             <v-card tile>
               <v-list rounded>
                 <v-subheader>TOP 10</v-subheader>
-                <v-list-item-group
-                    color="primary"
-                >
-                  <v-list-item
-                      v-for="(item, i) in ranking"
-                      :key="i"
-
-                  >
+                <v-list-item-group color="primary">
+                  <v-list-item v-for="(item, i) in ranking" :key="i">
                     <v-list-item-icon>
-                      <v-icon v-text="i+1"></v-icon>
+                      <v-icon v-text="i + 1"></v-icon>
                     </v-list-item-icon>
-                    <div class="d-flex justify-space-between" style=" width: 100%; height: 100%">
+                    <div
+                      class="d-flex justify-space-between"
+                      style="width: 100%; height: 100%"
+                    >
                       <span v-text="item.username"></span>
                       <span v-text="item.points"></span>
                     </div>
@@ -58,10 +53,10 @@ import axios from "axios";
 import globalRankingSkeleton from "./globalRankingSkeleton";
 export default {
   name: "countryRanking",
-  components:{
-    globalRankingSkeleton
+  components: {
+    globalRankingSkeleton,
   },
-  created(){
+  created() {
     const query = {
       query: `
         query{
@@ -79,17 +74,17 @@ export default {
     });
     this.find();
   },
-  data(){
-    return{
+  data() {
+    return {
       ranking: [],
       icon: "mdi-crown",
       loading: false,
       countries: null,
       select: { country: "Spain", id: "60a6b6ddf7adf9126b96f5d9" },
-    }
+    };
   },
-  methods:{
-    find(){
+  methods: {
+    find() {
       this.loading = true;
       const query = {
         query: `
@@ -103,21 +98,19 @@ export default {
       };
       console.log(query);
       axios.post(this.$apiPath, query).then((res) => {
-        if(res.data.data.countryRanking){
+        if (res.data.data.countryRanking) {
           this.ranking = res.data.data.countryRanking;
         }
         this.loading = false;
       });
-    }
+    },
   },
-  watch:{
-    select: function(){
-      this.find()
-    }
-  }
-}
+  watch: {
+    select: function () {
+      this.find();
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
