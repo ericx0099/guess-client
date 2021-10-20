@@ -102,6 +102,7 @@ export default {
         this.checkGameToken();
       });
       socket.on("new_question", (data) => {
+        console.log("new - question");
         this.waiting_lobby = false;
         this.creating = false;
         this.joining = false;
@@ -119,12 +120,18 @@ export default {
         }
       });
       socket.on("answer-response", (data) => {
+        console.log("new-answer-response");
         if (data == "2") {
           this.progressbar_color_response = "light-green";
         } else {
           this.progressbar_color_response = "red";
         }
+        socket.emit("get-question", {
+          game_token: this.game_token,
+          userId: this.$store.state.auth.user._id,
+        });
       });
+
       socket.on("user-kicked", (data) => {
         this.players = data;
       });
@@ -165,6 +172,7 @@ export default {
       });
     },
     submitAnswer(id, time) {
+      console.log("submitAnswer");
       socket.emit("submit-answer", {
         answer: id,
         question: this.question.question_id,
@@ -172,12 +180,6 @@ export default {
         game_token: this.game_token,
         time: time,
       });
-      setTimeout(() => {
-        socket.emit("get-question", {
-          game_token: this.game_token,
-          userId: this.$store.state.auth.user._id,
-        });
-      }, 999);
     },
     getQuestion() {
       socket.emit("get-question", {

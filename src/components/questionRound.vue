@@ -119,7 +119,7 @@ export default {
     stateChange() {
       setTimeout(() => {
         this.$parent.next();
-      }, 3500);
+      }, 3000);
     },
     timebar() {
       const limitedInterval = setInterval(() => {
@@ -137,7 +137,7 @@ export default {
               } else {
                 console.log("lul43");
               }
-            }, 2000);
+            }, 3);
           } else {
             this.$parent.progressbar_color =
               this.$parent.progressbar_color_response;
@@ -147,24 +147,8 @@ export default {
                 this.$parent.rounds = false;
                 this.$parent.game_ended = true;
               }
-            }, 900);
+            }, 3);
           }
-          /*   if (this.$parent.game_ended_prev) {
-               setTimeout(() => {
-                 this.$parent.rounds = false;
-                 this.$parent.game_ended = true;
-               }, 2000);
-             } else {
-               if (!this.hasAnswered) {
-                 this.$parent.submitAnswer("60aeb08e4ebd2a1b9bf7d779", 110);
-                 this.$parent.progressbar_color = "red";
-                 this.stateChange();
-               } else {
-                 this.$parent.progressbar_color =
-                   this.$parent.progressbar_color_response;
-                 this.stateChange();
-               }
-             }*/
         } else {
           this.$parent.timebar_value = this.$parent.timebar_value + 10;
         }
